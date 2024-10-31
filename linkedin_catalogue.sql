@@ -8,7 +8,7 @@ WHERE `Release Date` IS NOT NULL
     AND `Retire Date` IS NOT NULL
     AND Category IN ('Creative', 'Technology')
 GROUP BY Category;
---------------------------------------------------------------------------------
+
 -- Release Date Patterns
 -- Question: Are there specific months or quarters where new courses are more frequently released?
 -- The following queries analyze course release patterns by month and by quarter.
@@ -19,6 +19,7 @@ FROM ll.catalogue
 WHERE `Release Date` IS NOT NULL
 GROUP BY Release_Month
 ORDER BY Release_Count DESC;
+
 -- Count releases by quarter
 SELECT QUARTER(`Release Date`) AS Release_Quarter,
     COUNT(*) AS Release_Count
@@ -26,7 +27,7 @@ FROM ll.catalogue
 WHERE `Release Date` IS NOT NULL
 GROUP BY Release_Quarter
 ORDER BY Release_Count DESC;
---------------------------------------------------------------------------------
+
 -- Most Frequently Mentioned Skills
 -- Question: What are the top 5 most frequently mentioned skills across all courses?
 -- This query splits the "Skill" field into individual skills and calculates the frequency of each skill.
@@ -63,7 +64,7 @@ FROM SplitSkills
 GROUP BY Skill
 ORDER BY Frequency DESC
 LIMIT 5;
---------------------------------------------------------------------------------
+
 -- Date-Based Queries
 -- Question: For each year, find how many courses were released and how many were retired.
 -- This query calculates the number of courses released and retired per year.
@@ -87,7 +88,7 @@ SELECT COALESCE(ReleaseCounts.Year, RetireCounts.Year) AS Year,
 FROM ReleaseCounts
     LEFT JOIN RetireCounts ON ReleaseCounts.Year = RetireCounts.Year
 ORDER BY Year;
---------------------------------------------------------------------------------
+
 -- Longest Update Gap
 -- Question: Calculate the time difference between "Release Date" and "Last Updated Date" for each course and find the courses with the longest update gap.
 -- This query finds the courses with the longest duration between release and last update.
